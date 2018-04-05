@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 @SuppressWarnings("serial")
 /**	An instance is a calculator window. */
 class Window extends JFrame {
+	
 	private static final String windowTitle = "Calculator";
 	
 	/**	Constructor: the main window of the calculator. */
