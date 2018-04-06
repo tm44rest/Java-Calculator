@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 class Window extends JFrame implements ActionListener {
 	private static final String windowTitle = "Calculator";	// Title of the window
 	
+	// Number display associated with this window
+	private NumberDisplay numberDisplay;
+	
 	// Number buttons
 	private JButton number1;
 	private JButton number2;
@@ -34,12 +37,12 @@ class Window extends JFrame implements ActionListener {
 	private JButton equalsButton;	// displays the result of all previous operations
 	
 	/**	Constructor: the main window of the calculator. */
-	private Window() {
+	public Window() {
 		super(windowTitle);
 		setLayout(new BorderLayout());
 		
 		// Create number display
-		JTextArea numberDisplay = setUpNumberDisplay();
+		numberDisplay = setUpNumberDisplay();
 		
 		// Create Number buttons
 		JPanel numberPanel = setUpNumberPanel();
@@ -59,9 +62,9 @@ class Window extends JFrame implements ActionListener {
 	}
 
 	/**	Create and return the number display. */
-	private JTextArea setUpNumberDisplay() {
+	private NumberDisplay setUpNumberDisplay() {
 		// TODO Set up number display
-		return new JTextArea();
+		return new NumberDisplay();
 	}
 	
 	/** Creates and returns a formatted JButton with text from String s and adds
@@ -111,7 +114,33 @@ class Window extends JFrame implements ActionListener {
 	/**	Process event e from the buttons */
 	@Override public void actionPerformed(ActionEvent e) {
 		// TODO Process button clicks
+		Object s = e.getSource();
 		
+		// Number buttons
+		if (s == number1) return;
+		if (s == number2) return;
+		if (s == number3) return;
+		if (s == number4) return;
+		if (s == number5) return;
+		if (s == number6) return;
+		if (s == number7) return;
+		if (s == number8) return;
+		if (s == number9) return;
+		if (s == number0) return;
+		if (s == negButton) return;
+		if (s == decimalPointButton) return;
+		
+		// Operation buttons
+		if (s == additionButton) return;
+		if (s == subtractionButton) return;
+		if (s == multiplicationButton) return;
+		if (s == divisionButton) return;
+		if (s == clearButton) return;
+		if (s == clearAllButton) return;
+		if (s == equalsButton) return;
+		
+		// None of the above
+		System.err.println(s);
 	}
 	
 	/** Start the GUI */
