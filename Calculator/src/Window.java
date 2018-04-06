@@ -26,11 +26,12 @@ class Window extends JFrame implements ActionListener {
 	
 	// Operation buttons
 	private JButton additionButton;	// addition operation
-	private JButton subtractionButtion;	// subtraction operation
+	private JButton subtractionButton;	// subtraction operation
 	private JButton multiplicationButton;	// multiplication operation
 	private JButton divisionButton;	// division operation
-	private JButton clear;	// clears memory of current entry
-	private JButton clearAll;	// clears memory of all entries
+	private JButton clearButton;	// clears memory of current entry
+	private JButton clearAllButton;	// clears memory of all entries
+	private JButton equalsButton;	// displays the result of all previous operations
 	
 	/**	Constructor: the main window of the calculator. */
 	private Window() {
@@ -63,56 +64,48 @@ class Window extends JFrame implements ActionListener {
 		return new JTextArea();
 	}
 	
-	/** Creates and returns a formatted JButton with text from String s and
-	 * 	adds it to ButtonGroup group. */
-	private JButton createJButton(String s, ButtonGroup group) {
+	/** Creates and returns a formatted JButton with text from String s and adds
+	 *  it to JPanel panel if panel is non-null. */
+	private JButton createJButton(String s, JPanel panel) {
 		JButton jb = new JButton(s);
-		group.add(jb);
 		jb.setHorizontalTextPosition(SwingConstants.CENTER);
 		jb.addActionListener(this);
+		if (panel != null) panel.add(jb);
 		return jb;
 	}
 	
 	/**	Set up and return the number buttons panel. */
 	private JPanel setUpNumberPanel() {
-		// Set up number buttons
-		ButtonGroup numbers = new ButtonGroup();
-		number1 = createJButton("1", numbers);
-		number2 = createJButton("2", numbers);
-		number3 = createJButton("3", numbers);
-		number4 = createJButton("4", numbers);
-		number5 = createJButton("5", numbers);
-		number6 = createJButton("6", numbers);
-		number7 = createJButton("7", numbers);
-		number8 = createJButton("8", numbers);
-		number9 = createJButton("9", numbers);
-		number0 = createJButton("0", numbers);
-		negButton = createJButton("-", numbers);
-		decimalPointButton = createJButton(".", numbers);
-		
-		// Create number panel
-		JPanel numberPanel = new JPanel(new GridLayout(4,3));
+		JPanel numberPanel = new JPanel(new GridLayout(4,3));	// 4x3 panel
 		numberPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		numberPanel.add(number9);
-		numberPanel.add(number8);
-		numberPanel.add(number7);
-		numberPanel.add(number6);
-		numberPanel.add(number5);
-		numberPanel.add(number4);
-		numberPanel.add(number3);
-		numberPanel.add(number2);
-		numberPanel.add(number1);
-		numberPanel.add(negButton);
-		numberPanel.add(decimalPointButton);
-		numberPanel.add(number0);
+		number9 = createJButton("9", numberPanel);
+		number8 = createJButton("8", numberPanel);
+		number7 = createJButton("7", numberPanel);
+		number6 = createJButton("6", numberPanel);
+		number5 = createJButton("5", numberPanel);
+		number4 = createJButton("4", numberPanel);
+		number3 = createJButton("3", numberPanel);
+		number2 = createJButton("2", numberPanel);
+		number1 = createJButton("1", numberPanel);
+		negButton = createJButton("+/-", numberPanel);
+		decimalPointButton = createJButton(".", numberPanel);
+		number0 = createJButton("0", numberPanel);
 		
 		return numberPanel;
 	}
 	
 	/**	Create and return the operation buttons panel. */
 	private JPanel setUpOperationsPanel() {
-		// TODO Set up operation buttons
-		return new JPanel();
+		JPanel operationsPanel = new JPanel(new GridLayout(7,1)); // 7x1 panel
+		clearAllButton = createJButton("CE", operationsPanel);
+		clearButton = createJButton("C", operationsPanel);
+		divisionButton = createJButton("/", operationsPanel);
+		multiplicationButton = createJButton("*", operationsPanel);
+		subtractionButton = createJButton("-", operationsPanel);
+		additionButton = createJButton("+", operationsPanel);
+		equalsButton = createJButton("=", operationsPanel);
+		
+		return operationsPanel;
 	}
 
 	/**	Process event e from the buttons */
