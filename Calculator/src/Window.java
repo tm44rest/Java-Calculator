@@ -113,31 +113,30 @@ class Window extends JFrame implements ActionListener {
 
 	/**	Process event e from the buttons */
 	@Override public void actionPerformed(ActionEvent e) {
-		// TODO Process button clicks
 		Object s = e.getSource();
 		
 		// Number buttons
-		if (s == number1) return;
-		if (s == number2) return;
-		if (s == number3) return;
-		if (s == number4) return;
-		if (s == number5) return;
-		if (s == number6) return;
-		if (s == number7) return;
-		if (s == number8) return;
-		if (s == number9) return;
-		if (s == number0) return;
-		if (s == negButton) return;
-		if (s == decimalPointButton) return;
+		if (s == number1) numberDisplay.processNumber(1);
+		if (s == number2) numberDisplay.processNumber(2);
+		if (s == number3) numberDisplay.processNumber(3);
+		if (s == number4) numberDisplay.processNumber(4);
+		if (s == number5) numberDisplay.processNumber(5);
+		if (s == number6) numberDisplay.processNumber(6);
+		if (s == number7) numberDisplay.processNumber(7);
+		if (s == number8) numberDisplay.processNumber(8);
+		if (s == number9) numberDisplay.processNumber(9);
+		if (s == number0) numberDisplay.processNumber(0);
+		if (s == negButton) numberDisplay.changeSign();
+		if (s == decimalPointButton) numberDisplay.decimalize();
 		
 		// Operation buttons
-		if (s == additionButton) return;
-		if (s == subtractionButton) return;
-		if (s == multiplicationButton) return;
-		if (s == divisionButton) return;
-		if (s == clearButton) return;
-		if (s == clearAllButton) return;
-		if (s == equalsButton) return;
+		if (s == additionButton) numberDisplay.changeState("add");
+		if (s == subtractionButton) numberDisplay.changeState("subtract");
+		if (s == multiplicationButton) numberDisplay.changeState("multiply");
+		if (s == divisionButton) numberDisplay.changeState("divide");
+		if (s == clearButton) numberDisplay.clear();
+		if (s == clearAllButton) numberDisplay.clearAll();
+		if (s == equalsButton) numberDisplay.calculateEquals();
 		
 		// None of the above
 		System.err.println(s);

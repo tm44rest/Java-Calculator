@@ -6,7 +6,8 @@ import javax.swing.JTextArea;
  * calculations happen). */
 public class NumberDisplay extends JTextArea {
 	private String state;	// state of the calculator i.e. what operation it is performing
-	private double currentNum;	// current double being displayed
+	private double displayedNum;	// current double being displayed
+	private double currentNum;	// current double in memory. if != 0, equal to displayedNum
 	private double totalNum;	// total double that is in memory to be calculated
 	private boolean isDecimalized;	// "currentNum has a decimal place somewhere"
 	
@@ -20,8 +21,10 @@ public class NumberDisplay extends JTextArea {
 		// TODO process the integers passed from Window
 	}
 	
-	/** Change the state to String newState */
+	/** Change the state to String newState. If currentNum != 0, 
+	 * 	process the numbers in memory before the state change. */
 	public void changeState(String newState) {
+		if (currentNum != 0) calculateEquals();
 		state = newState;
 	}
 	
@@ -31,4 +34,20 @@ public class NumberDisplay extends JTextArea {
 		// TODO give currentNum a decimal place
 	}
 	
+	/** Change currentNum to the opposite sign. */
+	public void changeSign() {
+		currentNum = currentNum*-1;
+	}
+	
+	public void clear() {
+		// TODO perform the clear operation
+	}
+	
+	public void clearAll() {
+		// TODO perform the clear all operation
+	}
+	
+	public void calculateEquals() {
+		// TODO perform the equals operation
+	}
 }
