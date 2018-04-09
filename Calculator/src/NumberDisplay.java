@@ -1,24 +1,39 @@
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 /** An instance is a number display for a calculator. 
  * This is the "brains" of the calculator (i.e. where all the 
  * calculations happen). */
-public class NumberDisplay extends JTextArea {
+public class NumberDisplay extends JLabel {
 	private String state;	// state of the calculator i.e. what operation it is performing
-	private double displayedNum;	// current double being displayed
-	private double currentNum;	// current double in memory. if != 0, equal to displayedNum
-	private double totalNum;	// total double that is in memory to be calculated
+	private Double displayedNum;	// current double being displayed
+	private Double currentNum;	// current double in memory. if != 0, equal to displayedNum
+	private Double totalNum;	// total double that is in memory to be calculated
 	private boolean isDecimalized;	// "currentNum has a decimal place somewhere"
 	
 	public NumberDisplay() {
-		super();
+		super("0", SwingConstants.RIGHT);
 		state = "equals";
+		displayedNum = new Double(0);
+		currentNum = new Double(0);
+		totalNum = new Double(0);
 	}
 	
 	/** Process an integer depending on the state of the calculator. */
 	public void processNumber(int number) {
-		// TODO process the integers passed from Window
+		// Add number to the right of currentNum
+		if (isDecimalized) {	// Has a decimal point
+			currentNum = Double.parseDouble(currentNum.toString() + number);
+			this.setText(currentNum.toString());
+		}
+		else {	// Does not have a decimal point
+			if (currentNum == 0) currentNum = Double.parseDouble("" + number);
+			else currentNum = Double.parseDouble("" + currentNum.intValue() + number);
+			this.setText("" + currentNum.intValue());
+		}
+		displayedNum = currentNum;
 	}
 	
 	/** Change the state to String newState. If currentNum != 0, 
