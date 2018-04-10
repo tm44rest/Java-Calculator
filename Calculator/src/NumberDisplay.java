@@ -18,7 +18,7 @@ public class NumberDisplay extends JLabel {
 	
 	public NumberDisplay() {
 		super("0", SwingConstants.RIGHT);
-		state = "equals";
+		state = "add";
 		displayedNum = new Double(0);
 		currentNum = new Double(0);
 		totalNum = new Double(0);
@@ -82,6 +82,28 @@ public class NumberDisplay extends JLabel {
 	/** Return the totalNum and currentNum calculated together depending on
 	 * 	field state. */
 	public void calculateEquals() {
-		// TODO perform the equals operation
+		if (state == "add") {
+			totalNum = currentNum + totalNum;
+		}
+		else if (state == "subtract") {
+			totalNum = totalNum - currentNum;
+		}
+		else if (state == "multiply") {
+			totalNum = currentNum * totalNum;
+		}
+		else if (state == "divide") {
+			totalNum = totalNum / currentNum;
+		}
+		else System.err.println(state);
+		
+		currentNum = 0.0;
+		displayedNum = totalNum;
+		this.setText(displayedNum.toString());
+	}
+	
+	/** Set this JLabel text to n, either as an integer if n ends in .0 or a 
+	 * 	double otherwise, and update field displayedNum. */
+	private void displayNumber(double n) {
+		// TODO Implement displayNumber(double)
 	}
 }
