@@ -116,27 +116,29 @@ class Window extends JFrame implements ActionListener {
 		Object s = e.getSource();
 		
 		// Number buttons
-		if (s == number1) numberDisplay.processNumber(1);
-		if (s == number2) numberDisplay.processNumber(2);
-		if (s == number3) numberDisplay.processNumber(3);
-		if (s == number4) numberDisplay.processNumber(4);
-		if (s == number5) numberDisplay.processNumber(5);
-		if (s == number6) numberDisplay.processNumber(6);
-		if (s == number7) numberDisplay.processNumber(7);
-		if (s == number8) numberDisplay.processNumber(8);
-		if (s == number9) numberDisplay.processNumber(9);
-		if (s == number0) numberDisplay.processNumber(0);
-		if (s == negButton) numberDisplay.changeSign();
-		if (s == decimalPointButton) numberDisplay.decimalize();
+		if (s == number1) {numberDisplay.processNumber(1); return;}
+		if (s == number2) {numberDisplay.processNumber(2); return;}
+		if (s == number3) {numberDisplay.processNumber(3); return;}
+		if (s == number4) {numberDisplay.processNumber(4); return;}
+		if (s == number5) {numberDisplay.processNumber(5); return;}
+		if (s == number6) {numberDisplay.processNumber(6); return;}
+		if (s == number7) {numberDisplay.processNumber(7); return;}
+		if (s == number8) {numberDisplay.processNumber(8); return;}
+		if (s == number9) {numberDisplay.processNumber(9); return;}
+		if (s == number0) {numberDisplay.processNumber(0); return;}
+		if (s == negButton) {numberDisplay.changeSign(); return;}
+		if (s == decimalPointButton) {numberDisplay.decimalize(); return;}
 		
 		// Operation buttons
-		if (s == additionButton) numberDisplay.changeState("add");
-		if (s == subtractionButton) numberDisplay.changeState("subtract");
-		if (s == multiplicationButton) numberDisplay.changeState("multiply");
-		if (s == divisionButton) numberDisplay.changeState("divide");
-		if (s == clearButton) numberDisplay.clear();
-		if (s == clearAllButton) numberDisplay.clearAll();
-		if (s == equalsButton) numberDisplay.calculateEquals();
+		if (s == additionButton) {numberDisplay.changeState("add"); return;}
+		if (s == subtractionButton) { numberDisplay.changeState("subtract"); 
+			return; }
+		if (s == multiplicationButton) { numberDisplay.changeState("multiply"); 
+			return; }
+		if (s == divisionButton) {numberDisplay.changeState("divide"); return;}
+		if (s == clearButton) {numberDisplay.clear(); return;}
+		if (s == clearAllButton) {numberDisplay.clearAll(); return;}
+		if (s == equalsButton) {numberDisplay.calculateEquals(); return;}
 		
 		// None of the above
 		System.err.println(s);

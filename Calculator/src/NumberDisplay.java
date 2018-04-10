@@ -8,10 +8,13 @@ import javax.swing.SwingConstants;
  * calculations happen). */
 public class NumberDisplay extends JLabel {
 	private String state;	// state of the calculator i.e. what operation it is performing
+	
 	private Double displayedNum;	// current double being displayed
 	private Double currentNum;	// current double in memory. if != 0, equal to displayedNum
 	private Double totalNum;	// total double that is in memory to be calculated
+	
 	private boolean isDecimalized;	// "currentNum has a decimal place somewhere"
+	private boolean hasTensPlace;	// "isDecimalized and the tens place has been given"
 	
 	public NumberDisplay() {
 		super("0", SwingConstants.RIGHT);
@@ -25,7 +28,14 @@ public class NumberDisplay extends JLabel {
 	public void processNumber(int number) {
 		// Add number to the right of currentNum
 		if (isDecimalized) {	// Has a decimal point
-			currentNum = Double.parseDouble(currentNum.toString() + number);
+			String currentNumber = currentNum.toString();
+			if (hasTensPlace) currentNum = Double.parseDouble(currentNumber + 
+					number);
+			else {
+				currentNum = Double.parseDouble(currentNumber.substring(0, 
+						currentNumber.length()-1) + number);
+				hasTensPlace = true;
+			}
 			this.setText(currentNum.toString());
 		}
 		else {	// Does not have a decimal point
@@ -47,6 +57,8 @@ public class NumberDisplay extends JLabel {
 	 * 	at the right most place. */
 	public void decimalize() {
 		// TODO give currentNum a decimal place
+		if (!isDecimalized) this.setText(this.getText() + ".");
+		isDecimalized = true;
 	}
 	
 	/** Change currentNum to the opposite sign. */
