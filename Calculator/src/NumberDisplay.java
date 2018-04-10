@@ -24,9 +24,8 @@ public class NumberDisplay extends JLabel {
 		totalNum = new Double(0);
 	}
 	
-	/** Process an integer depending on the state of the calculator. */
+	/** Add number to the rightmost part of currentNum. */
 	public void processNumber(int number) {
-		// Add number to the right of currentNum
 		if (isDecimalized) {	// Has a decimal point
 			String currentNumber = currentNum.toString();
 			if (hasTensPlace) currentNum = Double.parseDouble(currentNumber + 
@@ -36,12 +35,12 @@ public class NumberDisplay extends JLabel {
 						currentNumber.length()-1) + number);
 				hasTensPlace = true;
 			}
-			this.setText(currentNum.toString());
+			this.setText(currentNum.toString());	// displays a double
 		}
 		else {	// Does not have a decimal point
 			if (currentNum == 0) currentNum = Double.parseDouble("" + number);
 			else currentNum = Double.parseDouble("" + currentNum.intValue() + number);
-			this.setText("" + currentNum.intValue());
+			this.setText("" + currentNum.intValue());	// displays an integer
 		}
 		displayedNum = currentNum;
 	}
@@ -56,9 +55,10 @@ public class NumberDisplay extends JLabel {
 	/** If currentNum does not have a decimal point, give it a decimal point
 	 * 	at the right most place. */
 	public void decimalize() {
-		// TODO give currentNum a decimal place
-		if (!isDecimalized) this.setText(this.getText() + ".");
+		if (!isDecimalized) {
+			this.setText(this.getText() + ".");
 		isDecimalized = true;
+		}
 	}
 	
 	/** Change currentNum to the opposite sign. */
@@ -66,14 +66,21 @@ public class NumberDisplay extends JLabel {
 		currentNum = currentNum*-1;
 	}
 	
+	/** Change currentNum and displayedNum to 0. */
 	public void clear() {
-		// TODO perform the clear operation
+		currentNum = 0.0;
+		displayedNum = 0.0;
+		this.setText("" + currentNum.intValue());	// displays integer 0
 	}
 	
+	/** Call clear() and then change totalNum to 0. */
 	public void clearAll() {
-		// TODO perform the clear all operation
+		clear();
+		totalNum = 0.0;
 	}
 	
+	/** Return the totalNum and currentNum calculated together depending on
+	 * 	field state. */
 	public void calculateEquals() {
 		// TODO perform the equals operation
 	}
