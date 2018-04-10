@@ -63,7 +63,6 @@ class Window extends JFrame implements ActionListener {
 
 	/**	Create and return the number display. */
 	private NumberDisplay setUpNumberDisplay() {
-		// TODO Set up number display
 		return new NumberDisplay();
 	}
 	
