@@ -1,5 +1,4 @@
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
@@ -22,27 +21,29 @@ public class NumberDisplay extends JLabel {
 		displayedNum = new Double(0);
 		currentNum = new Double(0);
 		totalNum = new Double(0);
+		displayNumber(0.0);
 	}
 	
 	/** Add number to the rightmost part of currentNum. */
 	public void processNumber(int number) {
-		if (isDecimalized) {	// Has a decimal point
+		if (isDecimalized) {	// Has a decimal point, displays a double
+			// If currentNum does not have a digit in the tens place, need to
+			// add number to the tens place.
 			String currentNumber = currentNum.toString();
 			if (hasTensPlace) currentNum = Double.parseDouble(currentNumber + 
 					number);
-			else {
+			else {	
+				// replaces the .0 with .number
 				currentNum = Double.parseDouble(currentNumber.substring(0, 
 						currentNumber.length()-1) + number);
 				hasTensPlace = true;
 			}
-			this.setText(currentNum.toString());	// displays a double
 		}
-		else {	// Does not have a decimal point
+		else {	// Does not have a decimal point, displays an integer
 			if (currentNum == 0) currentNum = Double.parseDouble("" + number);
 			else currentNum = Double.parseDouble("" + currentNum.intValue() + number);
-			this.setText("" + currentNum.intValue());	// displays an integer
 		}
-		displayedNum = currentNum;
+		displayNumber(currentNum);
 	}
 	
 	/** Change the state to String newState. If currentNum != 0, 
@@ -55,22 +56,25 @@ public class NumberDisplay extends JLabel {
 	/** If currentNum does not have a decimal point, give it a decimal point
 	 * 	at the right most place. */
 	public void decimalize() {
-		if (!isDecimalized) {
-			this.setText(this.getText() + ".");
+		if (!isDecimalized) this.setText(currentNum.intValue() + ".");
 		isDecimalized = true;
-		}
 	}
 	
 	/** Change currentNum to the opposite sign. */
 	public void changeSign() {
 		currentNum = currentNum*-1;
+		
+		displayNumber(currentNum);
 	}
 	
 	/** Change currentNum and displayedNum to 0. */
 	public void clear() {
 		currentNum = 0.0;
 		displayedNum = 0.0;
-		this.setText("" + currentNum.intValue());	// displays integer 0
+		isDecimalized = false;
+		hasTensPlace = false;
+		
+		displayNumber(0.0);
 	}
 	
 	/** Call clear() and then change totalNum to 0. */
@@ -96,14 +100,31 @@ public class NumberDisplay extends JLabel {
 		}
 		else System.err.println(state);
 		
+		// Keep field invariants true
 		currentNum = 0.0;
-		displayedNum = totalNum;
-		this.setText(displayedNum.toString());
+		isDecimalized = false;
+		hasTensPlace = false;
+		
+		displayNumber(totalNum);
 	}
 	
-	/** Set this JLabel text to n, either as an integer if n ends in .0 or a 
-	 * 	double otherwise, and update field displayedNum. */
-	private void displayNumber(double n) {
-		// TODO Implement displayNumber(double)
+	/** Set this JLabel text to n represented as a double if n has any digits
+	 * 	in the tens place or beyond, or an integer otherwise. */
+	private void displayNumber(Double n) {
+		boolean displayAsInt = false;
+		
+		// Determine if n has any digits in the tens place and beyond
+		if (n == currentNum)	displayAsInt = !hasTensPlace;
+		else {
+			String nString = n.toString();
+			if (nString.substring(nString.lastIndexOf('.') + 1).equals("0"))
+				displayAsInt = true;
+		}
+		
+		// Integer display
+		if (displayAsInt) this.setText(n.intValue() + "");
+		// Double display
+		else this.setText(n.toString());
+		displayedNum = n;
 	}
 }
